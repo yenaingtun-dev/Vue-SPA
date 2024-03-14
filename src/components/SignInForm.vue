@@ -41,6 +41,6 @@ export default {
             // this.user.email = '';
             // this.user.password = '';
         }
-    }
+    },
 };
 </script>
