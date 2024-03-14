@@ -1,17 +1,16 @@
 <template>
-    <form @submit.prevent="onSubmit" action="#" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
-        <p class="text-center text-lg font-medium">Sign in to your account</p>
+    <form @submit.prevent="signIn" action="#" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
         <div>
             <label for="email" class="sr-only">Email</label>
             <div class="relative">
-                <input type="email" v-model="email"
-                    class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter email" />
+                <input type="email" v-model="user.email" class="w-full rounded-lg b
+                    order-gray-200 p-4 pe-12 text-sm shadow-sm" placeholder="Enter email" />
             </div>
         </div>
         <div>
             <label for="password" class="sr-only">Password</label>
             <div class="relative">
-                <input type="password" v-model="password"
+                <input type="password" v-model="user.password"
                     class="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                     placeholder="Enter password" />
             </div>
@@ -24,19 +23,24 @@
             <a class="underline" href="#">Sign up</a>
         </p>
     </form>
-    <p>Email is: {{ email }} and password is {{ password }}</p>
 </template>
 
 <script>
 export default {
     data() {
         return {
-            email: '',
-            password: ''
+            user: {
+                email: '',
+                password: ''
+            }
         }
     },
     methods: {
-
+        signIn() {
+            this.$emit('signIn', this.user);
+            // this.user.email = '';
+            // this.user.password = '';
+        }
     }
 };
 </script>
