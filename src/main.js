@@ -4,6 +4,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import HomeView from './views/HomeView.vue'
 import SignIn from './views/SignInView.vue'
+import Register from './views/RegisterView.vue'
 
 const guest = (to, from, next) => {
   if (!localStorage.getItem("bearerToken")) {
@@ -23,6 +24,7 @@ const auth = (to, from, next) => {
 const routes = [
   { path: '/', component: HomeView },
   { path: '/signIn', beforeEnter: guest,  component: SignIn },
+  { path: '/register', beforeEnter: guest,  component: Register },
 ]
 
 const router = createRouter({
