@@ -5,9 +5,24 @@ import App from './App.vue'
 import HomeView from './views/HomeView.vue'
 import SignIn from './views/SignInView.vue'
 
+const guest = (to, from, next) => {
+  if (!localStorage.getItem("bearerToken")) {
+    return next();
+  } else {
+    return next("/");
+  }
+};
+const auth = (to, from, next) => {
+  if (localStorage.getItem("bearerToken")) {
+    return next();
+  } else {
+    return next("/login");
+  }
+};
+
 const routes = [
   { path: '/', component: HomeView },
-  { path: '/signIn', component: SignIn, props: true },
+  { path: '/signIn', beforeEnter: guest,  component: SignIn },
 ]
 
 const router = createRouter({
