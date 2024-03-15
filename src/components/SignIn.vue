@@ -5,7 +5,7 @@
       <div v-if="success" class="rounded border-s-4 border-green-500 bg-green-50 p-4 mt-4">
         <strong class="block font-medium text-green-800"> {{ success }} </strong>
       </div>
-      <SignInForm @signIn="signIn" :errors="errors"></SignInForm>
+      <SignInForm @signIn="signIn" :errors="errors" :message="message"></SignInForm>
     </div>
   </div>
 </template>
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       success: '',
+      message: '',
       errors: {}
     }
   },
@@ -34,30 +35,11 @@ export default {
         localStorage.setItem('bearerToken', response.data.accessToken);
         user.email = '';
         user.password = '';
-        this.errors.errorMessage = '';
+        this.errors.message = '';
         this.$router.push('/')
       } catch (e) {
-        if (e.response.data.errors.hasOwnProperty('email') && e.response.data.errors.hasOwnProperty('password')) {
-          this.errors.email = e.response.data.errors.email[0];
-          this.errors.password = e.response.data.errors.password[0];
-          this.errors.errorMessage = '';
-        } else if (e.response.data.errors.hasOwnProperty('password')) {
-          this.errors.password = e.response.data.errors.password[0];
-          this.errors.email = '';
-          this.errors.errorMessage = '';
-        } else if (e.response.data.errors.hasOwnProperty('email')) {
-          this.errors.email = e.response.data.errors.email[0];
-          this.errors.password = '';
-          this.errors.errorMessage = '';
-        } else if (e.response.data.errors == '' && e.response.data.message == "user did not exitst") {
-          this.errors.errorMessage = e.response.data.message;
-          this.errors.email = '';
-          this.errors.password = '';
-        } else {
-          this.errors.email = '';
-          this.errors.password = '';
-          this.errors.errorMessage = '';
-        }
+        this.errors = e.response.data.errors;
+        this.message = e.response.data.message;
       }
     },
   },
