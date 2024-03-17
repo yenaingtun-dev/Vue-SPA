@@ -1,5 +1,5 @@
-import { createMemoryHistory, createRouter } from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
+import { createRouter, createWebHistory } from 'vue-router'
+import HomeView from '../views/HomeView.vue'
 
 const guest = (to, from, next) => {
   if (!localStorage.getItem("bearerToken")) {
@@ -17,12 +17,30 @@ const auth = (to, from, next) => {
 };
 
 const routes = [
-  { path: '/', component: HomeView },
-  { path: '/signIn', beforeEnter: guest,  component: () => import('../views/SignInView.vue') },
-  { path: '/register', beforeEnter: guest,  component: () => import('../views/RegisterView.vue') },
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/signin',
+    name: 'signin',
+    component: function () {
+      return import('../views/SignInView.vue')
+    }
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: function () {
+      return import('../views/RegisterView.vue')
+    }
+  }
 ]
 
 const router = createRouter({
-  history: createMemoryHistory(),
-  routes,
+  history: createWebHistory(),
+  routes
 })
+
+export default router
