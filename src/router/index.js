@@ -12,7 +12,7 @@ const auth = (to, from, next) => {
   if (localStorage.getItem("bearerToken")) {
     return next();
   } else {
-    return next("/login");
+    return next("/");
   }
 };
 
@@ -36,6 +36,14 @@ const routes = [
     beforeEnter: guest,
     component: function () {
       return import('../views/RegisterView.vue')
+    }
+  },
+  {
+    path: '/dashboard',
+    name: 'dashboard',
+    beforeEnter: auth,
+    component: function () {
+      return import('../views/DashboardView.vue')
     }
   }
 ]

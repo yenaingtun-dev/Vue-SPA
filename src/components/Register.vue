@@ -45,7 +45,7 @@ export default {
                 user.password = '';
                 user.password_confirmation = '';
                 this.errors.message = '';
-                this.$router.push('/')
+                this.$router.push('/dashboard')
             } catch (e) {
                 if (typeof e.response !== 'undefined') {
                     this.errors = e.response.data.errors;

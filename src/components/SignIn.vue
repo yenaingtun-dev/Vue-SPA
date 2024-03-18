@@ -42,7 +42,7 @@ export default {
         user.email = '';
         user.password = '';
         this.errors.message = '';
-        this.$router.push('/');
+        this.$router.push('/dashboard');
       } catch (e) {
         if (typeof e.response !== 'undefined') {
           this.errors = e.response.data.errors;
