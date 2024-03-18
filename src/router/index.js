@@ -25,6 +25,7 @@ const routes = [
   {
     path: '/signin',
     name: 'signin',
+    beforeEnter: guest,
     component: function () {
       return import('../views/SignInView.vue')
     }
@@ -32,6 +33,7 @@ const routes = [
   {
     path: '/register',
     name: 'register',
+    beforeEnter: guest,
     component: function () {
       return import('../views/RegisterView.vue')
     }

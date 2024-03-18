@@ -8,17 +8,20 @@
                 <nav aria-label="Global" class="hidden md:block">
                     <ul class="flex items-center gap-6 text-sm">
                         <li>
-                            <a v-if="localStorageItemExists" class="text-gray-500 transition hover:text-gray-500/75"
-                                href="#"> Dashboard </a>
+                            <a v-if="localStorageItemExists"
+                                class="text-gray-500 cursor-pointer transition hover:text-gray-500/75" href="#">
+                                Dashboard </a>
                         </li>
                     </ul>
                 </nav>
                 <div class="flex items-center gap-4">
                     <div class="sm:flex sm:gap-4">
-                        <RouterLink v-if="!localStorageItemExists"
+                        <a v-if="isLoggedIn" @click="logout"
+                            class="block rounded-md bg-teal-600 px-5 py-2.5 cursor-pointer text-sm font-medium text-white transition hover:bg-teal-700">Logout</a>
+                        <RouterLink v-if="!isLoggedIn"
                             class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-teal-700"
                             to="/signIn">SignIn</RouterLink>
-                        <RouterLink v-if="!localStorageItemExists"
+                        <RouterLink v-if="!isLoggedIn"
                             class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75"
                             to="/register">Register</RouterLink>
                     </div>
@@ -30,11 +33,33 @@
 
 <script>
 export default {
+    data() {
+        return {
+            isLoggedIn: false,
+            token: localStorage.getItem('bearerToken')
+        }
+    },
+    mounted() {
+        this.checkLoginStatus();
+    },
     computed: {
         localStorageItemExists() {
             // hide login register
             return localStorage.getItem('bearerToken') !== null;
         }
-    }
+    },
+    methods: {
+        logout() {
+            localStorage.removeItem("bearerToken");
+            this.$router.push('/signin');
+        },
+        checkLoginStatus() {
+            if (this.localStorageItemExists) {
+                this.isLoggedIn = true;
+            } else {
+                this.isLoggedIn = false;
+            }
+        }
+    },
 };
 </script>
