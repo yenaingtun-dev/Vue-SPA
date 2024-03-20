@@ -45,7 +45,15 @@ const routes = [
     component: function () {
       return import('../views/DashboardView.vue')
     }
-  }
+  },
+  {
+    path: '/post-create',
+    name: 'postCreate',
+    beforeEnter: auth,
+    component: function () {
+      return import('../views/PostCreateView.vue')
+    }
+  },
 ]
 
 const router = createRouter({

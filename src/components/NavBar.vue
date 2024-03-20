@@ -21,7 +21,7 @@
                             class="block rounded-md bg-teal-600 px-5 py-2.5 cursor-pointer text-sm font-medium  transition hover:bg-teal-700">Logout</a>
                         <RouterLink v-if="!isLoggedIn"
                             class="block rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium  transition hover:bg-teal-700"
-                            to="/signIn">SignIn</RouterLink>
+                            to="/signin">SignIn</RouterLink>
                         <RouterLink v-if="!isLoggedIn"
                             class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600 transition hover:text-teal-600/75"
                             to="/register">Register</RouterLink>
