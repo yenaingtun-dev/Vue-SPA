@@ -1,3 +1,11 @@
+<script>
+export default {
+    props: {
+        posts: Object,
+    },
+}
+</script>
+
 <template>
     <div class="mb-2" v-for="post in posts">
         <div class="rounded-lg border border-gray-300 bg-white p-4 shadow-sm transition hover:shadow-lg sm:p-6">
@@ -10,11 +18,3 @@
         </div>
     </div>
 </template>
-
-<script>
-export default {
-    props: {
-        posts: Object,
-    },
-}
-</script>
