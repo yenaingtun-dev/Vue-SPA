@@ -13,7 +13,7 @@
                 </path>
             </svg>
             <Posts v-if="!loading" :posts="posts"></Posts>
-            <div class="inline-flex items-center justify-center rounded bg-teal-500 py-1 text-white">
+            <div v-if="!loading" class="inline-flex items-center justify-center rounded bg-teal-500 py-1 text-white">
                 <a href="#" @click="prevPage" :disabled="currentPage === 1"
                     class="inline-flex size-8 items-center justify-center rtl:rotate-180">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
