@@ -26,7 +26,7 @@
                         <strong class="text-sm font-medium text-red-800"> {{ errors?.description[0] }} </strong>
                     </div>
                 </div>
-                <button type="submit"
+                <!-- <button type="submit"
                     class="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white"
                     :disabled="loading">
                     <svg v-if="loading" class="animate-spin w-10 h-8 mx-auto loading-svg" version="1.1" id="L9"
@@ -37,7 +37,22 @@
                         </path>
                     </svg>
                     <span v-if="!loading">Create</span>
-                </button>
+                </button> -->
+                <div class="bg-gray-50 py-3 sm:flex sm:flex-row-reverse ">
+                    <button type="submit" :disabled="loading"
+                        class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">
+                        <svg v-if="loading" class="animate-spin w-10 h-8 mx-auto loading-svg" version="1.1" id="L9"
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                            y="0px" viewBox="0 0 100 100" enable-background="new 0 0 0 0" xml:space="preserve">
+                            <path fill="#fff"
+                                d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
+                            </path>
+                        </svg>
+                        <span v-if="!loading">Create</span>
+                    </button>
+                    <button type="button" @click="this.$router.push('/dashboard')"
+                        class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
+                </div>
             </form>
         </div>
     </div>
@@ -72,7 +87,7 @@ export default {
                 this.post.title = '';
                 this.post.description = '';
                 this.errors.message = '';
-                this.$router.push('/dashboard')
+                this.$router.push('/dashboard');
             } catch (e) {
                 if (typeof e.response !== 'undefined') {
                     this.errors = e.response.data.message;

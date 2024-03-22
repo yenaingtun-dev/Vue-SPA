@@ -12,7 +12,7 @@
                     d="M73,50c0-12.7-10.3-23-23-23S27,37.3,27,50 M30.9,50c0-10.5,8.5-19.1,19.1-19.1S69.1,39.5,69.1,50">
                 </path>
             </svg>
-            <Posts v-if="!loading" :posts="posts"></Posts>
+            <Posts v-if="!loading" :posts="posts" :loading="posts.loading"></Posts>
             <div v-if="!loading" class="inline-flex items-center justify-center rounded bg-teal-500 py-1 text-white">
                 <a href="#" @click="prevPage" :disabled="currentPage === 1"
                     class="inline-flex size-8 items-center justify-center rtl:rotate-180">
@@ -43,56 +43,17 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Posts from './Posts.vue';
+import { fetchAPI } from '@/stores/Posts.js'
+
 export default {
     components: {
-        'Posts': Posts
+        'Posts': Posts,
     },
-    data() {
-        return {
-            posts: [],
-            token: localStorage.getItem('bearerToken'),
-            loading: false,
-            currentPage: 1,
-            totalPages: 1,
-        }
+    setup() {
+        const posts = fetchAPI();
+        posts.getPosts();
+        return posts;
     },
-    mounted() {
-        this.getPosts(this.currentPage);
-    },
-    methods: {
-        async getPosts(page) {
-            this.loading = true;
-            try {
-                const config = {
-                    headers: { Authorization: `Bearer ${this.token}`, proxy: false }
-                };
-                await axios.get(`http://127.0.0.1:8000/api/posts?page=${page}`, config)
-                    .then(response => {
-                        this.posts = Object.values(response.data.data.data);
-                        this.currentPage = response.data.data.current_page;
-                        this.totalPages = response.data.data.last_page;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            } catch (e) {
-                this.errors = e.response.data.errors;
-            } finally {
-                this.loading = false;
-            }
-        },
-        nextPage() {
-            if (this.currentPage < this.totalPages) {
-                this.getPosts(this.currentPage + 1);
-            }
-        },
-        prevPage() {
-            if (this.currentPage > 1) {
-                this.getPosts(this.currentPage - 1);
-            }
-        }
-    }
 }
 </script>
